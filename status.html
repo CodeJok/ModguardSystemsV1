@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Status</title>
+    <style>
+        body {
+            background: #000 !important;
+            color: #fff !important;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+            background: #000;
+            color: #fff;
+        }
+        
+        .hero {
+            background: #000;
+            padding: 40px 0 30px 0;
+            text-align: center;
+            border-radius: 0 0 18px 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 24px #000;
+            color: #fff;
+        }
+        
+        .hero h1,
+        .hero p {
+            color: #fff;
+        }
+        
+        .status-summary-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            background: #000;
+            border-radius: 10px;
+            padding: 18px 0;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px #000;
+            color: #fff;
+        }
+        
+        .status-summary-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .status-summary-dot.online {
+            background: #3fd84b;
+        }
+        
+        .status-summary-dot.offline {
+            background: #ff3b3b;
+        }
+        
+        .status-summary-dot.partial {
+            background: #ffd600;
+        }
+        
+        .status-summary-label {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #fff;
+            margin-right: 18px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+            margin-bottom: 30px;
+            background: #000;
+            color: #fff;
+        }
+        
+        .service-card {
+            background: #000;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #000;
+            padding: 24px 20px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 120px;
+            transition: box-shadow 0.2s;
+            color: #fff;
+        }
+        
+        .service-card:hover {
+            box-shadow: 0 4px 16px #111;
+            background: #111;
+        }
+        
+        .service-title {
+            font-size: 1.18rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        
+        .service-status {
+            display: flex;
+            align-items: center;
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+        
+        .service-status-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: inline-block;
+        }
+        
+        .service-status.online {
+            color: #3fd84b;
+        }
+        
+        .service-status-dot.online {
+            background: #3fd84b;
+        }
+        
+        .service-status.offline {
+            color: #ff3b3b;
+        }
+        
+        .service-status-dot.offline {
+            background: #ff3b3b;
+        }
+        
+        .service-status.partial {
+            color: #ffd600;
+        }
+        
+        .service-status-dot.partial {
+            background: #ffd600;
+        }
+        
+        .service-desc {
+            color: #fff;
+            font-size: 0.98rem;
+            margin-bottom: 0;
+        }
+        
+        .news-section {
+            background: #000;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px #000;
+            color: #fff;
+        }
+        
+        .news-section h2 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin: 0 0 10px 0;
+        }
+        
+        .news-list {
+            margin: 0;
+            padding-left: 18px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .alert {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #000;
+            z-index: 1000;
+            font-size: 1rem;
+        }
+        
+        .info-box {
+            display: none;
+            background: #000;
+            border-radius: 8px;
+            padding: 16px 22px;
+            margin: 18px 0;
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px #000;
+        }
+        
+        .auth,
+        .controls-label,
+        .controls,
+        .dashboard {
+            margin: 30px 0 0 0;
+            color: #fff;
+        }
+        
+        .controls-label {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .controls {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .controls button {
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .controls button:hover {
+            background: #222;
+            color: #fff;
+        }
+        
+        .dashboard {
+            display: none;
+            background: #000 !important;
+            border-radius: 10px;
+            padding: 24px 22px;
+            box-shadow: 0 2px 8px #000;
+            color: #fff;
+        }
+        
+        .dashboard h2 {
+            color: #fff;
+            margin-top: 0;
+        }
+        
+        .dashboard textarea {
+            width: 100%;
+            min-height: 60px;
+            background: #111;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        
+        .dashboard .quick-actions button {
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .dashboard .quick-actions button:hover {
+            background: #222;
+            color: #fff;
+        }
+        
+        .auth input[type="password"] {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #fff;
+            background: #000;
+            color: #fff;
+            font-size: 1rem;
+            margin-right: 8px;
+        }
+        
+        .auth button {
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        
+        .auth button:hover {
+            background: #222;
+            color: #fff;
+            box-shadow: 0 2px 8px #0004;
+        }
+        
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 0 5px 30px 5px;
+            }
+        }
+        
+        .action-btn,
+        .admin-btn {
+            background: #fff !important;
+            color: #000 !important;
+            border: 1px solid #fff;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 6px 8px 6px 0;
+            box-shadow: 0 2px 8px #000;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s, color 0.2s;
+            outline: none;
+        }
+        
+        .action-btn:hover,
+        .admin-btn:hover {
+            background: #e0e0e0 !important;
+            color: #000 !important;
+            box-shadow: 0 4px 16px #000;
+            transform: translateY(-2px) scale(1.03);
+        }
+        
+        .status-section {
+            background: #222;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #000;
+            padding: 32px 24px 24px 24px;
+            margin-bottom: 36px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <h1>ModGuard System Status</h1>
+        <p>Check the current status of all ModGuard services. Updates are posted below.</p>
+    </div>
+    <div class="container">
+
+        <!-- Grey Box Section -->
+        <div class="status-section">
+            <!-- Status Summary Bar -->
+            <div class="status-summary-bar">
+                <span class="status-summary-dot online"></span>
+                <span class="status-summary-label" id="main-status-label">All services are online</span>
+            </div>
+
+            <!-- Services Grid (Main & Admin Dashboard) -->
+            <div class="services-grid">
+                <div class="service-card" data-title="Tickets">
+                    <div class="service-title">Tickets</div>
+                    <div class="service-status online">
+                        <span class="service-status-dot online"></span>
+                        <span>Online</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('Tickets','online', event)">Online</button>
+                            <button onclick="setServiceStatus('Tickets','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">Ticket system is operational.</div>
+                </div>
+                <div class="service-card" data-title="Moderation">
+                    <div class="service-title">Moderation</div>
+                    <div class="service-status offline">
+                        <span class="service-status-dot offline"></span>
+                        <span>Offline</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('Moderation','online', event)">Online</button>
+                            <button onclick="setServiceStatus('Moderation','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">Moderation features are currently unavailable.</div>
+                </div>
+                <div class="service-card" data-title="AntiProtection">
+                    <div class="service-title">AntiProtection</div>
+                    <div class="service-status online">
+                        <span class="service-status-dot online"></span>
+                        <span>Online</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('AntiProtection','online', event)">Online</button>
+                            <button onclick="setServiceStatus('AntiProtection','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">AntiProtection system is operational.</div>
+                </div>
+                <div class="service-card" data-title="Operational">
+                    <div class="service-title">Operational</div>
+                    <div class="service-status online">
+                        <span class="service-status-dot online"></span>
+                        <span>Online</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('Operational','online', event)">Online</button>
+                            <button onclick="setServiceStatus('Operational','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">Bot is operational.</div>
+                </div>
+                <div class="service-card" data-title="Not Operational">
+                    <div class="service-title">Not Operational</div>
+                    <div class="service-status offline">
+                        <span class="service-status-dot offline"></span>
+                        <span>Offline</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('Not Operational','online', event)">Online</button>
+                            <button onclick="setServiceStatus('Not Operational','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">Bot is not operational.</div>
+                </div>
+                <div class="service-card" data-title="Server Status">
+                    <div class="service-title">Server Status</div>
+                    <div class="service-status online">
+                        <span class="service-status-dot online"></span>
+                        <span>Online</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('Server Status','online', event)">Online</button>
+                            <button onclick="setServiceStatus('Server Status','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">Server is operational.</div>
+                </div>
+                <div class="service-card" data-title="Database Status">
+                    <div class="service-title">Database Status</div>
+                    <div class="service-status online">
+                        <span class="service-status-dot online"></span>
+                        <span>Online</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('Database Status','online', event)">Online</button>
+                            <button onclick="setServiceStatus('Database Status','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">Database is operational.</div>
+                </div>
+                <div class="service-card" data-title="Error Logs">
+                    <div class="service-title">Error Logs</div>
+                    <div class="service-status online">
+                        <span class="service-status-dot online"></span>
+                        <span>Online</span>
+                        <span class="admin-buttons" style="display:none;">
+                            <button onclick="setServiceStatus('Error Logs','online', event)">Online</button>
+                            <button onclick="setServiceStatus('Error Logs','offline', event)">Offline</button>
+                        </span>
+                    </div>
+                    <div class="service-desc">Error logs are operational.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Popup -->
+        <div class="alert" id="alert-popup"></div>
+
+        <!-- Info Box -->
+        <div class="info-box" id="info-box">
+            <p id="info-message"></p>
+        </div>
+
+        <!-- Authentication Section -->
+        <div class="auth">
+            <input type="password" id="admin-code" placeholder="Enter Admin Code" onkeydown="handleEnter(event)">
+            <button onclick="authenticate()">Sign In</button>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls-label" id="controls-label" style="display:none;">
+            Admin Controls:
+        </div>
+        <div class="controls" id="controls">
+            <!-- Buttons have been removed -->
+        </div>
+
+        <!-- Remove the statistics section and update the dashboard -->
+        <div class="dashboard" id="dashboard" style="display:none;">
+            <h2>Admin Dashboard</h2>
+            <button class="action-btn" style="float:right;margin-bottom:16px;" onclick="exitAdmin()">Exit Admin Mode</button>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <button class="action-btn" onclick="setAllServices('online')">Turn All Services On</button>
+                <button class="action-btn" onclick="setAllServices('offline')">Turn All Services Off</button>
+                <button class="action-btn" onclick="setBotStatus('online')">Show All Online</button>
+                <button class="action-btn" onclick="setBotStatus('offline')">Show All Offline</button>
+                <button class="action-btn" onclick="setBotStatus('partial')">Show Partial</button>
+                <button class="action-btn" onclick="restartAllServices()">Restart All Services</button>
+                <button class="action-btn" onclick="clearLogs()">Clear Logs</button>
+            </div>
+
+            <!-- Service Management -->
+            <div class="services-grid">
+                <h3>Service Management</h3>
+                <!-- Repeat your service cards here as in the main grid, or use the same grid if shared -->
+                <!-- Example for one card: -->
+                <div class="service-card" data-title="Tickets">
+                    <div class="service-title">Tickets</div>
+                    <div class="service-status online">
+                        <span class="service-status-dot online"></span>
+                        <span>Online</span>
+                        <div class="admin-buttons">
+                            <button class="admin-btn" onclick="setServiceStatus('Tickets', 'online')">Online</button>
+                            <button class="admin-btn" onclick="setServiceStatus('Tickets', 'offline')">Offline</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat for other services as needed -->
+            </div>
+
+            <!-- Logs and Notes -->
+            <h3>Logs and Notes</h3>
+            <textarea id="problem-description" placeholder="Describe the problem here..."></textarea>
+            <button class="action-btn" onclick="saveProblem()">Save Problem</button>
+
+            <textarea id="system-logs" placeholder="View system logs here..."></textarea>
+            <button class="action-btn" onclick="saveSystemLogs()">Save System Logs</button>
+
+            <textarea id="admin-notes" placeholder="Add admin notes here..."></textarea>
+        </div>
+
+        <!-- News & Updates Section -->
+        <div class="news-section">
+            <h2>News & Updates</h2>
+            <ul class="news-list" id="news-list">
+                <li>All systems operational as of now.</li>
+                <li>Moderation features are under maintenance.</li>
+                <li>Welcome to the new ModGuard status page!</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+    const ADMIN_CODE = "1521"; // Replace with your actual admin code
+
+    // Service names (must match data-title attributes)
+    const SERVICE_NAMES = [
+        "Tickets",
+        "Moderation",
+        "AntiProtection",
+        "Operational",
+        "Not Operational",
+        "Server Status",
+        "Database Status",
+        "Error Logs"
+    ];
+
+    // Save all statuses to localStorage (replace with API call for real backend)
+    function saveStatuses(statuses) {
+        localStorage.setItem('modguard_statuses', JSON.stringify(statuses));
+    }
+
+    // Load all statuses from localStorage (replace with API call for real backend)
+    function loadStatuses() {
+        const data = localStorage.getItem('modguard_statuses');
+        if (data) {
+            return JSON.parse(data);
+        }
+        // Default: all online
+        const defaultStatuses = {};
+        SERVICE_NAMES.forEach(name => defaultStatuses[name] = 'online');
+        return defaultStatuses;
+    }
+
+    // Apply statuses to the UI
+    function applyStatuses(statuses) {
+        document.querySelectorAll('.service-card').forEach(card => {
+            const title = card.getAttribute('data-title');
+            const status = statuses[title] || 'online';
+            const statusDiv = card.querySelector('.service-status');
+            const dot = card.querySelector('.service-status-dot');
+            const textSpan = statusDiv.querySelectorAll('span')[1];
+            if (status === 'online') {
+                statusDiv.className = 'service-status online';
+                dot.className = 'service-status-dot online';
+                textSpan.textContent = 'Online';
+            } else {
+                statusDiv.className = 'service-status offline';
+                dot.className = 'service-status-dot offline';
+                textSpan.textContent = 'Offline';
+            }
+        });
+        updateSummaryBar();
+    }
+
+    // Set all services to online or offline and save globally
+    function setAllServices(status) {
+        const statuses = {};
+        SERVICE_NAMES.forEach(name => statuses[name] = status);
+        saveStatuses(statuses);
+        applyStatuses(statuses);
+        setBotStatus(status);
+        showAlert(`All services set to ${status.toUpperCase()}`);
+    }
+
+    // Set individual service status and save globally
+    function setServiceStatus(title, status, event) {
+        const statuses = loadStatuses();
+        statuses[title] = status;
+        saveStatuses(statuses);
+        applyStatuses(statuses);
+        showAlert(title + " set to " + status.charAt(0).toUpperCase() + status.slice(1));
+    }
+
+    // Set the summary bar status (online/offline/partial)
+    function setBotStatus(status) {
+        const statusElement = document.getElementById('main-status-label');
+        const dot = document.querySelector('.status-summary-dot');
+        if (status === 'online') {
+            statusElement.textContent = "All services are online";
+            dot.className = 'status-summary-dot online';
+        } else if (status === 'offline') {
+            statusElement.textContent = "All services are offline";
+            dot.className = 'status-summary-dot offline';
+        } else if (status === 'partial') {
+            statusElement.textContent = "Some services are experiencing issues";
+            dot.className = 'status-summary-dot partial';
+        }
+        showAlert("Status summary updated!");
+    }
+
+    // Update the summary bar based on all service statuses
+    function updateSummaryBar() {
+        const statuses = loadStatuses();
+        const values = Object.values(statuses);
+        if (values.every(s => s === 'online')) {
+            setBotStatus('online');
+        } else if (values.every(s => s === 'offline')) {
+            setBotStatus('offline');
+        } else {
+            setBotStatus('partial');
+        }
+    }
+
+    // Show/hide admin buttons on each light
+    function showAdminButtons(show) {
+        document.querySelectorAll('.admin-buttons').forEach(el => {
+            el.style.display = show ? 'inline-block' : 'none';
+        });
+    }
+
+    // Function to show alert popup
+    function showAlert(message) {
+        const alertPopup = document.getElementById('alert-popup');
+        alertPopup.textContent = message;
+        alertPopup.style.display = 'block';
+        setTimeout(() => {
+            alertPopup.style.display = 'none';
+        }, 3000);
+    }
+
+    // Function to authenticate the user
+    function authenticate() {
+        const inputCode = document.getElementById('admin-code').value;
+        if (inputCode === ADMIN_CODE) {
+            document.getElementById('controls').style.display = 'flex';
+            document.getElementById('controls-label').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'block';
+            document.querySelector('.auth').style.display = 'none';
+            showAdminButtons(true);
+            showAlert("Access granted!");
+        } else {
+            showAlert("Access denied! Incorrect code.");
+        }
+    }
+
+    // Function to handle Enter key for login
+    function handleEnter(event) {
+        if (event.key === "Enter") {
+            authenticate();
+        }
+    }
+
+    // Function to exit admin controls
+    function exitAdmin() {
+        document.getElementById('controls').style.display = 'none';
+        document.getElementById('controls-label').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'none';
+        document.querySelector('.auth').style.display = 'block';
+        document.getElementById('admin-code').value = '';
+        showAdminButtons(false);
+        showAlert("You have exited admin mode.");
+    }
+
+    // Function to save the problem description and admin notes
+    async function saveProblem() {
+        const problemDescription = document.getElementById('problem-description').value;
+        const adminNotes = document.getElementById('admin-notes').value;
+
+        if (problemDescription.trim() === "" && adminNotes.trim() === "") {
+            showAlert("Please enter a valid problem description or admin notes!");
+            return;
+        }
+
+        const infoBox = document.getElementById('info-box');
+        const infoMessage = document.getElementById('info-message');
+        let message = "";
+        if (problemDescription.trim() !== "") {
+            message += `<strong>Reason for Downtime:</strong><br>${problemDescription}<br>`;
+        }
+        if (adminNotes.trim() !== "") {
+            message += `<strong>Admin Notes:</strong><br>${adminNotes}`;
+        }
+        infoMessage.innerHTML = message;
+        infoBox.style.display = 'block';
+        showAlert("Problem description and notes saved!");
+    }
+
+    // Function to save the system logs and show on front page
+    function saveSystemLogs() {
+        const systemLogs = document.getElementById('system-logs').value;
+        if (systemLogs.trim() === "") {
+            showAlert("Please enter system logs to save!");
+            return;
+        }
+        const infoBox = document.getElementById('info-box');
+        const infoMessage = document.getElementById('info-message');
+        let message = `<strong>System Logs:</strong><br>${systemLogs}`;
+        infoMessage.innerHTML = message;
+        infoBox.style.display = 'block';
+        showAlert("System logs saved and shown on front page!");
+    }
+
+    // Set initial status on page load
+    window.onload = () => {
+        // Always load saved statuses, or default to all online
+        const statuses = loadStatuses();
+        applyStatuses(statuses);
+    };
+</script>
+</body>
+
+</html>

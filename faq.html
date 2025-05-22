@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModGuard FAQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #000, #222 60%, #181818 100%);
+            color: #fff;
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background: #111;
+            padding: 2rem 0 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        header h1 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 3rem;
+            margin: 0;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+        
+        header p {
+            color: #aaa;
+            font-size: 1.2rem;
+            margin: 0.5rem 0 0 0;
+        }
+        
+        nav {
+            margin: 1.5rem 0 2rem 0;
+            text-align: center;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1.2rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: #7289da;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 2rem auto 2rem auto;
+            background: #181818;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+            padding: 2.5rem 2rem;
+        }
+        
+        .faq-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #7289da;
+            text-align: center;
+        }
+        
+        .faq-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .faq-item {
+            margin-bottom: 2.2rem;
+            border-bottom: 1px solid #222;
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-question {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        .faq-answer {
+            color: #ccc;
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+        
+        .faq-link {
+            color: #7289da;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        
+        .faq-link:hover {
+            color: #5865f2;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cta {
+            background: linear-gradient(90deg, #222 60%, #7289da 100%);
+            color: #fff;
+            padding: 2rem 1rem;
+            border-radius: 10px;
+            margin: 2.5rem auto 1.5rem auto;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
+        }
+        
+        .cta h2 {
+            margin: 0 0 1rem 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 2rem;
+        }
+        
+        .cta a {
+            display: inline-block;
+            background: #7289da;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .cta a:hover {
+            background: #5865f2;
+        }
+        
+        footer {
+            margin-top: 2rem;
+            padding: 1rem 0;
+            font-size: 0.95rem;
+            background: #111;
+            color: #aaa;
+            text-align: center;
+        }
+        
+        @media (max-width: 900px) {
+            .faq-container,
+            .cta {
+                max-width: 98vw;
+                padding: 1.2rem 0.5rem;
+            }
+            header h1 {
+                font-size: 2.1rem;
+            }
+            .faq-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>ModGuard FAQ</h1>
+        <p>Your questions answered. Everything you need to know about ModGuard.</p>
+    </header>
+    <nav>
+        <a href="ModGuard.index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="status.html">Status</a>
+        <a href="credits.html">Credits</a>
+        <a href="premium.html">Premium</a>
+    </nav>
+    <div class="faq-container">
+        <div class="faq-title">Frequently Asked Questions</div>
+        <ul class="faq-list">
+            <li class="faq-item">
+                <div class="faq-question">What is ModGuard?</div>
+                <div class="faq-answer">
+                    ModGuard is an advanced Discord bot designed to help you manage, moderate, and protect your server with ease. It offers powerful moderation tools, automation, and security features trusted by thousands of communities.
+                </div>
+            </li>
+            <li class="faq-item">
+                <div class="faq-question">How do I invite ModGuard to my server?</div>
+                <div class="faq-answer">
+                    Simply click the "Invite ModGuard" button on our homepage or use the invite link provided in the <a href="ModGuard.index.html" style="color:#7289da;">main page</a>. Make sure you have the necessary permissions to add bots to your server.
+                </div>
+            </li>
+            <li class="faq-item">
+                <div class="faq-question">Is ModGuard free to use?</div>
+                <div class="faq-answer">
+                    Yes! ModGuard offers a wide range of features for free. We also provide premium features for users who want to unlock even more powerful tools and customization.
+                </div>
+            </li>
+            <li class="faq-item">
+                <div class="faq-question">How do I get support or report a bug?</div>
+                <div class="faq-answer">
+                    You can join our <a href="https://discord.gg/pPFCMJpC" target="_blank" style="color:#7289da;">Discord community</a> for support, updates, and to report any issues. Our team is always ready to help!
+                </div>
+            </li>
+            <li class="faq-item">
+                <div class="faq-question">What makes ModGuard different from other bots?</div>
+                <div class="faq-answer">
+                    ModGuard stands out with its reliability, constant updates, advanced anti-raid and anti-spam systems, and a dedicated support team. We focus on security, ease of use, and community-driven features.
+                </div>
+            </li>
+            <li class="faq-item">
+                <div class="faq-question">How often is ModGuard updated?</div>
+                <div class="faq-answer">
+                    We update ModGuard regularly with new features, improvements, and security patches. Stay tuned to our Discord or website for the latest news!
+                </div>
+            </li>
+            <li class="faq-item">
+                <div class="faq-question">Can I customize ModGuard for my server?</div>
+                <div class="faq-answer">
+                    Absolutely! ModGuard is highly customizable. You can adjust commands, permissions, and settings to fit your server’s unique needs.
+                </div>
+            </li>
+            <li class="faq-item">
+                <div class="faq-question">Is my server data safe with ModGuard?</div>
+                <div class="faq-answer">
+                    Yes. We take privacy and security seriously. ModGuard only stores essential data and never shares your information with third parties.
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="cta">
+        <h2>Still have questions?</h2>
+        <p>Join our Discord community for live support and updates!</p>
+        <a href="https://discord.gg/pPFCMJpC" target="_blank" rel="noopener">Join Discord</a>
+    </div>
+    <footer>
+        &copy; 2025 ModGuard. All rights reserved. | Designed by the ModGuard Team
+    </footer>
+</body>
+
+</html>

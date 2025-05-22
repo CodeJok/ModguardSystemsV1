@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ModGuard Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            width: 100%;
+            background: #111;
+            box-shadow: 0 2px 8px #000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        
+        .navbar .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            padding: 0 28px;
+        }
+        
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-right: 24px;
+        }
+        
+        .navbar .nav-btn {
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            outline: none;
+        }
+        
+        .navbar .nav-btn:hover,
+        .navbar .nav-btn.active {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 2px 8px #000;
+        }
+        
+        .navbar .nav-btn:focus {
+            outline: none;
+        }
+        
+        .hero {
+            background: #000;
+            padding: 60px 0 40px 0;
+            text-align: center;
+            border-radius: 0 0 18px 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 24px #000;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .coming-soon-box {
+            background: #181818;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #000;
+            padding: 60px 40px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .coming-soon-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+        
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .coming-soon-box {
+                padding: 40px 10px;
+            }
+            .coming-soon-text {
+                font-size: 1.5rem;
+            }
+            .navbar .brand {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+            .navbar .nav-links {
+                padding-right: 8px;
+            }
+            .navbar .nav-btn {
+                padding: 6px 10px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        a.nav-btn {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="brand">ModGuard</div>
+        <div class="nav-links">
+            <a href="ModGuard.index.html" class="nav-btn">Home</a>
+            <a href="features.html" class="nav-btn">Features</a>
+            <a href="status.html" class="nav-btn">Status</a>
+            <a href="credits.html" class="nav-btn">Credits</a>
+            <a href="premium.html" class="nav-btn active">Premium</a>
+        </div>
+    </div>
+    <div class="hero">
+        <h1>ModGuard Premium</h1>
+    </div>
+    <div class="container">
+        <div class="coming-soon-box">
+            <div class="coming-soon-text">Coming Soon</div>
+        </div>
+    </div>
+</body>
+
+</html>
